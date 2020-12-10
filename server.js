@@ -1,13 +1,40 @@
 const express = require('express');
+const userRouter = require("./users/userRouter")
+const postRouter = require("./posts/postRouter")
 
 const server = express();
 
+server.use(express.json())
+
+server.use(logger)
+
+server.use("/users", userRouter)
+server.use("/posts", postRouter)
+
+server.use((err, req, res, next) => {
+    console.log(err)
+
+    res.status(500).json({
+        message: "Something went wrong, please try again later."
+    })
+    next()
+})
 server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
+  res.status(200).json({
+    message: `Welcome ${process.env.COHORT}`,
+    quote: process.env.QUOTE_OF_THE_DAY || "There is no quote of the day.",
+  });
 });
 
 //custom middleware
+server.use (logger)
 
-function logger(req, res, next) {}
+function logger (req, res, next) {
+  console.log(
+    `[${new Date().toISOString()}] ${req.method} to ${req.url}`
+  );
+
+  next();
+}
 
 module.exports = server;
