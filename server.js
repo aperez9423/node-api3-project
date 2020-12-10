@@ -19,12 +19,11 @@ server.use((err, req, res, next) => {
     })
     next()
 })
-server.get('/', (req, res, next) => {
+server.get('/', (req, res) => {
   res.status(200).json({
     message: `Welcome ${process.env.COHORT}`,
-    quote: `${process.env.QUOTE_OF_THE_DAY}`,
+    quote: process.env.QUOTE_OF_THE_DAY || "There is no quote of the day.",
   });
-  next()
 });
 
 //custom middleware
