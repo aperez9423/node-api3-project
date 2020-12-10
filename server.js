@@ -19,9 +19,13 @@ server.use((err, req, res, next) => {
     })
     next()
 })
-//server.get('/', (req, res) => {
-  //res.send(`<h2>Let's write some middleware!</h2>`);
-//});
+server.get('/', (req, res, next) => {
+  res.status(200).json({
+    message: `Welcome ${process.env.COHORT}`,
+    quote: `${process.env.QUOTE_OF_THE_DAY}`,
+  });
+  next()
+});
 
 //custom middleware
 server.use (logger)
