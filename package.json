@@ -5,8 +5,7 @@
     "main": "index.js",
     "scripts": {
         "watch": "nodemon --require dotenv/config index.js",
-        "server": "nodemon index.js",
-        "start": "cross-env NODE_ENV=production node index.js"
+        "server": "nodemon index.js"
     },
     "repository": {
         "type": "git",
